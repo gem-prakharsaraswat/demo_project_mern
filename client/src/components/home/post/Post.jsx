@@ -1,4 +1,5 @@
 import { styled, Box, Typography } from "@mui/material";
+import React, { useState } from "react";
 
 const Container = styled(Box)`
   border: 1px solid #d3cede;
@@ -7,7 +8,7 @@ const Container = styled(Box)`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 350px;
+  height: 250px;
   & > img,
   & > p {
     padding: 0 5px 5px 5px;
@@ -23,17 +24,16 @@ const Image = styled("img")({
 
 const Text = styled(Typography)`
     color: #878787
-    font-size: 12px;
+    font-size: 10px;
 `;
 
 const Heading = styled(Typography)`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-`;
-
-const Details = styled(Typography)`
-  font-size: 14px;
-  word-break: break-word;
+  overflow: hidden; /* Add this line to hide overflowing text */
+  text-overflow: ellipsis; /* Add this line to display ellipsis for long text */
+  white-space: nowrap; /* Add this line to prevent wrapping */
+  transition: all 0.3s; /* Add this line for smooth transition */
 `;
 
 const Post = ({ post }) => {
@@ -49,13 +49,23 @@ const Post = ({ post }) => {
     );
   };
 
+  const [showFullHeading, setShowFullHeading] = useState(false);
+
+  const handleHeadingHover = () => {
+    setShowFullHeading(!showFullHeading);
+  };
+
   return (
     <Container>
       <Image src={url} alt="post" />
       <Text>{post.categories}</Text>
-      <Heading>{addEllipsis(post.title, 20)}</Heading>
+      <Heading
+        onMouseEnter={handleHeadingHover}
+        onMouseLeave={handleHeadingHover}
+      >
+        {showFullHeading ? post.title : addEllipsis(post.title, 20)}
+      </Heading>
       <Text>Author: {post.username}</Text>
-      <Details>{addEllipsis(post.description, 100)}</Details>
     </Container>
   );
 };

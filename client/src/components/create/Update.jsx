@@ -50,7 +50,7 @@ const initialPost = {
   title: "",
   description: "",
   picture: "",
-  username: "codeforinterview",
+  username: "",
   categories: "Tech",
   createdDate: new Date(),
 };

@@ -44,7 +44,6 @@ const Contact = () => {
           >
             <Email />
           </Link>
-          .
         </Text>
       </Wrapper>
     </Box>
